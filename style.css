@@ -1,0 +1,7 @@
+.product img {
+    max-width: 100px;
+    margin-right: 20px;
+}
+.product-description {
+    flex-grow: 1;
+}
