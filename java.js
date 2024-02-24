@@ -36,21 +36,21 @@ function createCardTemplate(product) {
 
 
     let col = document.createElement("div");
-    col.classList.add("col-12", "col-sm-6", "col-md-3", "col-lg-3");
+    col.classList.add("col-12", "col-sm-6", "col-md-4", "col-lg-3");
 
     resultsBox.appendChild(col);
 
     // Creazione degli elementi della card
     let card = document.createElement('div');
     card.classList.add('card', 'mb-3');
-    card.style.width = '18rem';
     col.appendChild(card);
     
 
     let img = document.createElement('img');
     img.classList.add('card-img-top');
     img.src = product.imageUrl;
-    img.setAttribute("alt", "immagine del prodotto")
+    img.setAttribute("alt", "immagine del prodotto");
+    // img.style.maxHeight = '320px';
     card.appendChild(img);
 
     let cardBody = document.createElement('div');
@@ -64,9 +64,32 @@ function createCardTemplate(product) {
 
     let description = document.createElement('p');
     description.classList.add('card-text');
-    description.textContent = product.description;
+    let truncatedDescription = product.description.length > 50 ? product.description.substring(0, 50) + '...' : product.description;
+    description.textContent = truncatedDescription;
     cardBody.appendChild(description);
 
+// mostra di più
+let showMoreButton = document.createElement('button');
+showMoreButton.classList.add('btn', 'btn-link');
+showMoreButton.textContent = 'Mostra di più';
+showMoreButton.addEventListener('click', function() {
+    description.textContent = product.description;
+    showMoreButton.style.display = 'none'; 
+    showLessButton.style.display = 'inline'; 
+});
+cardBody.appendChild(showMoreButton);
+
+    //mostra meno
+    let showLessButton = document.createElement('button');
+    showLessButton.classList.add('btn', 'btn-link');
+    showLessButton.textContent = 'Mostra meno';
+    showLessButton.style.display = 'none'; 
+    showLessButton.addEventListener('click', function() {
+        description.textContent = truncatedDescription;
+        showLessButton.style.display = 'none'; 
+        showMoreButton.style.display = 'inline'; 
+    });
+    cardBody.appendChild(showLessButton);
     
     let listGroup = document.createElement('ul');
     listGroup.classList.add('list-group', 'list-group-flush');
@@ -80,7 +103,7 @@ function createCardTemplate(product) {
 
     let priceItem = document.createElement('li');
     priceItem.classList.add('list-group-item');
-    priceItem.textContent = 'Price: ' + product.price;
+    priceItem.textContent = 'Price: € ' + product.price;
     listGroup.appendChild(priceItem);
 
 

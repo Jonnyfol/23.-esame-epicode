@@ -1,30 +1,45 @@
+// Input immagine:
+const postImg = document.getElementById("post-img");
 
 // Input post name:
 const postName = document.getElementById("post-name");
+
+// Input post brand:
+const postBrand = document.getElementById("post-brand");
+
 // Input post description:
 const postDesc = document.getElementById("post-description");
+
 // Input post price:
 const postPrice = document.getElementById("post-price");
-// Alert per dati incompleti:
-const inputAlert = document.getElementById("alert-msg");
-// Alert per update completa:
-const editedAlert = document.getElementById("update-msg");
+
+// Alert
+const editedAlert = document.getElementById("editedAlert");
+
+
 // Endpoint:
-const apiUrl = "https://striveschool-api.herokuapp.com/api/agenda/";
+const apiUrl = "https://striveschool-api.herokuapp.com/api/product/";
+const apiKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NWQ0ZWVlMTljNDM3MDAwMTkzYzM3NGEiLCJpYXQiOjE3MDg0NTM2MDEsImV4cCI6MTcwOTY2MzIwMX0.4QF5RCuvYfg3DylYp5hda6aev2ihOkOBxMZUwkqmbAI';
 
-const paramObj = new URLSearchParams(window.location.search); // Oggetto con i vari query params
-const myPostId = paramObj.get("pid"); // Id del post attivo...
+const paramObj = new URLSearchParams(window.location.search); 
+const myPostId = paramObj.get("pid"); 
 
-// Esegui al caricamento della pagina:
+
 window.onload = showPost();
 
-// Recupera i dati del singolo post ed inseriscili nei rispettivi input
+
 async function showPost() {
     try {
-        const res = await fetch(apiUrl + myPostId);
+        const res = await fetch(apiUrl + myPostId, {
+            headers: {
+                "Authorization": `Bearer ${apiKey}`
+            }
+        });
         const json = await res.json();
 
+        postImg.value = json.imageUrl;
         postName.value = json.name;
+        postBrand.value = json.brand;
         postDesc.value = json.description;
         postPrice.value = json.price ? json.price : "0";
     } catch(err) {
@@ -32,14 +47,21 @@ async function showPost() {
     }
 }
 
-// Funzione per editare il post attivo nella pagina detail.html
+
 async function editPost() {
-    // Validation per la casistica di utente che svuota tutti gli input...
-    if(postName.value && postDesc.value && postPrice.value) {
+   
+    if(postImg.value && postName.value && postBrand.value && postDesc.value && postPrice.value) {
         try {
-            // Recuperare i dati attivi degli input ed inserirli nell'oggetto Payload
-            let myPayload = { "name": postName.value, "description": postDesc.value, "price": postPrice.value };
-            const res = await fetch(apiUrl + myPostId, { "method": "PUT", "body": JSON.stringify(myPayload), "headers": { "Content-Type": "application/json" }});
+            
+            let myPayload = {
+                "imageUrl": postImg.value, 
+                "name": postName.value,
+                "brand": postBrand.value,
+                "description": postDesc.value,
+                "price": postPrice.value,
+                "time": new Date()
+            };
+            const res = await fetch(apiUrl + myPostId, { "method": "PUT", "body": JSON.stringify(myPayload), "headers": { "Content-Type": "application/json", "Authorization": `Bearer ${apiKey}` }});
             // Avviso temporaneo di avvenuta modifica
             editedAlert.classList.toggle("d-none");
             setTimeout(() => {

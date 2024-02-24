@@ -29,6 +29,7 @@ function displayProductDetails(product) {
     const img = document.createElement('img');
     img.src = product.imageUrl;
     img.alt = product.name;
+    img.style.maxHeight = '500px';
     productDetailsContainer.appendChild(img);
 
     
@@ -45,7 +46,7 @@ function displayProductDetails(product) {
     productDetailsContainer.appendChild(brandPara);
 
     const pricePara = document.createElement('p');
-    pricePara.innerHTML = `<strong>Price:</strong> ${product.price}`;
+    pricePara.innerHTML = `<strong>Price: €</strong> ${product.price}`;
     productDetailsContainer.appendChild(pricePara);
     ;
     

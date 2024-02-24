@@ -1,13 +1,13 @@
 // Contenitore dei risultati:
 const resultsBox = document.getElementById("results-area");
 
-// Input post name:
+// Input immagine:
 const postImg = document.getElementById("post-img");
 
 // Input post name:
 const postName = document.getElementById("post-name");
 
-// Input post name:
+// Input post brand:
 const postBrand = document.getElementById("post-brand");
 
 // Input post description:
@@ -39,7 +39,7 @@ async function getPosts() {
                 "Authorization": `Bearer ${apiKey}`
             }
         });
-        const json = await res.json(); // Qui avrò un array di oggetti (posts..)
+        const json = await res.json(); 
         json.forEach((post) => {
             createPostTemplate(post);
         });
@@ -50,23 +50,7 @@ async function getPosts() {
 }
 
 function createPostTemplate({ _id, immage, name, brand, description, price }) {
-    // Template tipo:
-    // --------------
-    // <tr>
-    //     <th>Name</th>
-    //     <td>Description</td>
-    //     <td>Price</td>
-    //     <td>
-    //         <a class="btn btn-primary btn-sm">
-    //             <i class="fa-solid fa-pencil" aria-hidden="true"></i>
-    //             <span class="ms-1">Edit</span>
-    //         </a>
-    //         <a class="btn btn-danger btn-sm ms-1">
-    //             <i class="fa-solid fa-trash" aria-hidden="true"></i>
-    //             <span class="ms-1">Delete</span>
-    //         </a>
-    //     </td>
-    // </tr>
+
 
     // Istruzioni per costruire il template tramite JS:
     let tableRow = document.createElement("tr");
@@ -164,7 +148,7 @@ async function createPost() {
         }
     } else {
         inputAlert.classList.toggle("d-none");
-        // console.log("Devi inserire tutti e 3 i campi obbligatori!");
+        // console.log("Devi inserire tutti e 5 i campi obbligatori!");
         setTimeout(() => {
             inputAlert.classList.toggle("d-none");
         }, 5000);
