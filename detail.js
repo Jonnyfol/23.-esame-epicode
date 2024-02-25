@@ -35,6 +35,7 @@ function displayProductDetails(product) {
     
     const heading = document.createElement('h2');
     heading.textContent = product.name;
+    heading.classList.add('mt-4');
     productDetailsContainer.appendChild(heading);
 
     const descriptionPara = document.createElement('p');

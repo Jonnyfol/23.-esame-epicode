@@ -1,20 +1,22 @@
 // Input immagine:
 const postImg = document.getElementById("post-img");
+const postImgClear = document.getElementById("post-img-clear");
 
 // Input post name:
 const postName = document.getElementById("post-name");
+const postNameClear = document.getElementById("post-name-clear");
 
 // Input post brand:
 const postBrand = document.getElementById("post-brand");
+const postBrandClear = document.getElementById("post-brand-clear");
 
 // Input post description:
 const postDesc = document.getElementById("post-description");
+const postDescClear = document.getElementById("post-description-clear");
 
 // Input post price:
 const postPrice = document.getElementById("post-price");
-
-// Alert
-const editedAlert = document.getElementById("editedAlert");
+const postPriceClear = document.getElementById("post-price-clear");
 
 
 // Endpoint:
@@ -78,3 +80,15 @@ async function editPost() {
         }, 5000);
     }
 }
+
+
+//pulizia tramite la x
+
+postImgClear.addEventListener('click', () => { postImg.value = '' });
+postNameClear.addEventListener('click', () => { postName.value = '' });
+postBrandClear.addEventListener('click', () => { postBrand.value = '' });
+postDescClear.addEventListener('click', () => { postDesc.value = '' });
+postPriceClear.addEventListener('click', () => { postPrice.value = '' });
+
+// Alert
+const editedAlert = document.getElementById("editedAlert");

@@ -1,56 +1,52 @@
-
-
-   // Contenitore dei risultati:
+// Contenitore dei risultati:
 const resultsBox = document.getElementById("content-produt");
 
 // Endpoint:
 const apiUrl = 'https://striveschool-api.herokuapp.com/api/product/';
 const apiKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NWQ0ZWVlMTljNDM3MDAwMTkzYzM3NGEiLCJpYXQiOjE3MDg0NTM2MDEsImV4cCI6MTcwOTY2MzIwMX0.4QF5RCuvYfg3DylYp5hda6aev2ihOkOBxMZUwkqmbAI';
 
-window.onload = getPosts();
+window.onload = async function() {
+    const products = await getPosts();
+    createCardTemplates(products);
+    activateSearch(products);
+};
 
 async function getPosts() {
-    // resultsBox.innerHTML = "";
     try {
         const res = await fetch(apiUrl, {
             headers: {
                 "Authorization": `Bearer ${apiKey}`
             }
         });
-        const json = await res.json(); 
-        json.forEach((product) => {
-            createCardTemplate(product);
-        });
-        // console.log(json);
+        return await res.json();
     } catch (error) {
         console.log(error);
     }
 }
 
-
+function createCardTemplates(products) {
+    resultsBox.innerHTML = '';
+    products.forEach(product => {
+        createCardTemplate(product);
+    });
+}
 
 function createCardTemplate(product) {
-
-
-   
-
-
     let col = document.createElement("div");
     col.classList.add("col-12", "col-sm-6", "col-md-4", "col-lg-3");
-
     resultsBox.appendChild(col);
 
     // Creazione degli elementi della card
     let card = document.createElement('div');
-    card.classList.add('card', 'mb-3');
+    card.classList.add('card', 'mb-3', 'd-flex', 'zoom-hover');
     col.appendChild(card);
-    
 
     let img = document.createElement('img');
-    img.classList.add('card-img-top');
+    img.classList.add('card-img-top', 'mx-auto');
     img.src = product.imageUrl;
     img.setAttribute("alt", "immagine del prodotto");
-    // img.style.maxHeight = '320px';
+    img.style.maxWidth = '200px';
+    img.style.maxHeight = '230px';
     card.appendChild(img);
 
     let cardBody = document.createElement('div');
@@ -68,18 +64,18 @@ function createCardTemplate(product) {
     description.textContent = truncatedDescription;
     cardBody.appendChild(description);
 
-// mostra di più
-let showMoreButton = document.createElement('button');
-showMoreButton.classList.add('btn', 'btn-link');
-showMoreButton.textContent = 'Mostra di più';
-showMoreButton.addEventListener('click', function() {
-    description.textContent = product.description;
-    showMoreButton.style.display = 'none'; 
-    showLessButton.style.display = 'inline'; 
-});
-cardBody.appendChild(showMoreButton);
+    // Mostra di più
+    let showMoreButton = document.createElement('button');
+    showMoreButton.classList.add('btn', 'btn-link');
+    showMoreButton.textContent = 'Mostra di più';
+    showMoreButton.addEventListener('click', function() {
+        description.textContent = product.description;
+        showMoreButton.style.display = 'none'; 
+        showLessButton.style.display = 'inline'; 
+    });
+    cardBody.appendChild(showMoreButton);
 
-    //mostra meno
+    // Mostra meno
     let showLessButton = document.createElement('button');
     showLessButton.classList.add('btn', 'btn-link');
     showLessButton.textContent = 'Mostra meno';
@@ -94,7 +90,6 @@ cardBody.appendChild(showMoreButton);
     let listGroup = document.createElement('ul');
     listGroup.classList.add('list-group', 'list-group-flush');
     cardBody.appendChild(listGroup);
-    
 
     let brandItem = document.createElement('li');
     brandItem.classList.add('list-group-item');
@@ -106,10 +101,9 @@ cardBody.appendChild(showMoreButton);
     priceItem.textContent = 'Price: € ' + product.price;
     listGroup.appendChild(priceItem);
 
-
     let cardFooter = document.createElement('div');
     cardFooter.classList.add('card-footer');
-    card.appendChild(cardFooter)
+    card.appendChild(cardFooter);
 
     let infoButton = document.createElement('button');
     infoButton.classList.add('btn', 'btn-primary');
@@ -117,19 +111,19 @@ cardBody.appendChild(showMoreButton);
 
     infoButton.addEventListener('click', function() {
         console.log('Informazioni dettagliate su ' + product.name);
-
         const detailPageUrl = `detail.html?id=${product._id}`;
         window.location.href = detailPageUrl;
+    });
 
-    }
-    
-    );
-
-   cardFooter.appendChild(infoButton);
- 
-
-
-
-    
-    
+    cardFooter.appendChild(infoButton);
 }
+
+function activateSearch(products) {
+    const searchInput = document.querySelector('input[type="search"]');
+    searchInput.addEventListener('input', function() {
+        const searchValue = this.value.toLowerCase().trim();
+        const filteredProducts = products.filter(product => product.name.toLowerCase().includes(searchValue));
+        createCardTemplates(filteredProducts);
+    });
+}
+

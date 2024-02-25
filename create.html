@@ -18,50 +18,38 @@
 </head>
 
 <body>
-  <!-- Navbar Area -->
+  
   <div class="container">
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="#">EpicPhone</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-            data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-            aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="#">Home</a>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                        data-bs-toggle="dropdown" aria-expanded="false">
-                        Marche
-                    </a>
-                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+  <h1 class="text-warning my-5">Administration Area</h1>
 
-                        <li><a class="dropdown-item" href="#">Samsung</a></li>
-                        <li>
-                            <hr class="dropdown-divider">
-                        </li>
-                        <li><a class="dropdown-item" href="#">Nokia</a></li>
-                        <li>
-                            <hr class="dropdown-divider">
-                        </li>
-                        <li><a class="dropdown-item" href="#">Honor</a></li>
-                    </ul>
-                </li>
 
-            </ul>
-            <form class="d-flex">
-                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-success" type="submit">Search</button>
-            </form>
-        </div>
+<h3 class="fw-bold">Inserisci un nuvo prodotto</h3>
+  <!-- Creation Area -->
+  <div class="creation-area row bg-dark p-3 g-0 text-center">
+    <div class="col-md-2">
+      <input type="text" id="post-img" placeholder="Immagine del post">
     </div>
-</nav>
+    <div class="col-md-2">
+      <input type="text" id="post-name" placeholder="Nome del post">
+    </div>
+    <div class="col-md-2">
+      <input type="text" id="post-brand" placeholder="Marca">
+    </div>
+    <div class="col-md-2">
+      <input type="text" id="post-description" placeholder="Descrizione">
+    </div>
+    <div class="col-md-2">
+      <input type="number" name="post-price" id="post-price" placeholder="Prezzo" step="0.01" min="0" max="10000">
+    </div>
+
+    <div class="col-md-2">
+      <button type="button" class="btn btn-sm btn-success" onclick="createPost()">Create Post</button>
+    </div>
+  </div>
 
 
+
+  <h3 class="fw-bold text-success my-3">Modifica o cancella un prodotto</h3>
   <div class="container mt-4 row">
     <!-- Table Area -->
     <table class="table table-dark table-striped">
@@ -80,28 +68,7 @@
       </tbody>
     </table>
 
-    <!-- Creation Area -->
-    <div class="creation-area row bg-dark p-3 g-0 text-center">
-      <div class="col-md-2">
-        <input type="text" id="post-img" placeholder="Immagine del post">
-      </div>
-      <div class="col-md-2">
-        <input type="text" id="post-name" placeholder="Nome del post">
-      </div>
-      <div class="col-md-2">
-        <input type="text" id="post-brand" placeholder="Marca">
-      </div>
-      <div class="col-md-2">
-        <input type="text" id="post-description" placeholder="Descrizione">
-      </div>
-      <div class="col-md-2">
-        <input type="number" name="post-price" id="post-price" placeholder="Prezzo" step="0.01" min="0" max="10000">
-      </div>
-
-      <div class="col-md-2">
-        <button type="button" class="btn btn-sm btn-success" onclick="createPost()">Create Post</button>
-      </div>
-    </div>
+    
     
     <!-- Alert per segnalare dati incompleti! -->
     <div class="alert alert-warning d-none my-3" role="alert" id="alert-msg">
@@ -117,6 +84,10 @@
     </div>
 
   </div>
+
+  <a href="index.html">
+    <button type="button" class="btn btn-primary btn-lg my-3">Torna alla home page</button>
+</a>
 
 
   <footer class="text-muted py-5">

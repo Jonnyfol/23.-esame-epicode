@@ -5,3 +5,13 @@
 .product-description {
     flex-grow: 1;
 }
+.zoom-hover {
+    transition: transform 0.3s ease; 
+    position: relative; 
+    z-index: 1; 
+}
+
+.zoom-hover:hover {
+    transform: scale(1.1); 
+    z-index: 2; 
+}

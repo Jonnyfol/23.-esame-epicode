@@ -84,7 +84,7 @@ function createPostTemplate({ _id, immage, name, brand, description, price }) {
 
     // Tasto di cancellazione:
     let delBtn = document.createElement("a");
-    delBtn.classList.add("btn", "btn-danger", "btn-sm", "ms-1");
+    delBtn.classList.add("btn", "btn-danger", "btn-sm", "ms-1", "my-2");
     delBtn.addEventListener("click", () => {
         deletePost(_id);
     });
