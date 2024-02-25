@@ -72,7 +72,7 @@ function createPostTemplate({ _id, immage, name, brand, description, price }) {
     let editBtn = document.createElement("a");
     editBtn.classList.add("btn", "btn-primary", "btn-sm");
     editBtn.href = `modifica.html?pid=${_id}`;
-    editBtn.target = "_blank";
+    
     let editImg = document.createElement("i");
     editImg.classList.add("fa-solid", "fa-pencil");
     let editText = document.createElement("span");
